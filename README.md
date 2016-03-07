@@ -10,4 +10,5 @@ I didn't start a new procedure at once,I just corrected an old one.I tried to sh
 
 Here I push one of my procedure about the tri-system in my repository,https://github.com/YMTheory/computationalphysics_N2013301020035/blob/master/tri-stars.py
 which is simple but satisfies my need that time.I just used gravitational force formula and considerd the modification in the center-of-mass frame,and then got this result.I also give one situation here for some initial condition.https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/678.PNG
+In the origin(0,0)here is the sun,and two stars spin around it.With an exaggerate mass ratio and initial orbit radius,an obvious chaos appears along time.
 Although the procession of python is a little slower compared with C,but the time saved in programming makes it worthy learning it!
