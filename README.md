@@ -8,4 +8,5 @@ At that time,one of my teachers,Mr Zhou,proposed a book and at the same time,pyt
 
 I didn't start a new procedure at once,I just corrected an old one.I tried to show the moving orbit for a simple pendulum.It's pleasantly surprising that the procedure can show the formation of the orbit only if you use suited date.Along the procession of program,I could see the appearance of chaos clearly.And then I did an exercise in the *Computational Physics* of Nicholas J.Giordano,which was a tri-star system and also presented chaos.
 
-Here I push one of my procedure about the tri-system in my repository,which is simple but satisfies my need that time.Although the procession of python is a little slower compared with C,but the time saved in programming makes it worthy learning it!
+Here I push one of my procedure about the tri-system in my repository,https://github.com/YMTheory/computationalphysics_N2013301020035/blob/master/tri-stars.py
+which is simple but satisfies my need that time.I just used gravitational force formula and considerd the modification in the center-of-mass frame,and then got this result.Although the procession of python is a little slower compared with C,but the time saved in programming makes it worthy learning it!
