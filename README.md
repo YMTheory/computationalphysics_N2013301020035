@@ -16,6 +16,6 @@ Although the procession of python is a little slower compared with C,but the tim
 
 
 ##The Realization of Display of Characters
-I have already updated my dispaly procedure version 1.0:https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/test1.py.This little thing can display any characters in any order as you wish.However,in version 1.0 I have just added 6 characters 'A,I,M,O,U,Y',I will complete it little by little.But I didn't realize it in a big matrix,I just splitted a character into 5 rows,and saved every one in this way in a dictionary,and finally put different characters together.
+I have already updated my dispaly procedure version 1.0:https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/test1.py.  This little thing can display any characters in any order as you wish.However,in version 1.0 I have just added 6 characters 'A,I,M,O,U,Y',I will complete it little by little.But I didn't realize it in a big matrix,I just splitted a character into 5 rows,and saved every one in this way in a dictionary,and finally put different characters together.
 
 And now I am concentrating on my version 2.0 to display a flash.
