@@ -1,6 +1,7 @@
 #The Realization of Display of Characters
 
-##Abstract:A method of dictionary and loop to dispaly characters on the screen is appied here.Just some basic python grammer is invovled.Processing the program,you can see the characters you entered displayed on th screen composed of "#","*"...
+##Abstract:
+A method of dictionary and loop to dispaly characters on the screen is appied here.Just some basic python grammer is invovled.Processing the program,you can see the characters you entered displayed on th screen composed of "#","*"...
 
 ##Contents
 ###Demands
