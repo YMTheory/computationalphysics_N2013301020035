@@ -25,8 +25,7 @@
 4.What I still need to do is to connect all values in the same dictionary as a character string,then print it on the screen.
 
 ###Code
-
-
+https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/Display/test1.py
 
 ###Drawbacks
 1.I haven't finished all 26 characters(For practicing,I just finished my name).
