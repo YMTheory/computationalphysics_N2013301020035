@@ -12,3 +12,10 @@ Here I push one of my procedure about the tri-system in my repository,https://gi
 which is simple but satisfies my need that time.I just used gravitational force formula and considerd the modification in the center-of-mass frame,and then got this result.I also give one situation here for some initial condition.https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/678.PNG
 In the origin(0,0)here is the sun,and two stars spin around it.With an exaggerate mass ratio and initial orbit radius,an obvious chaos appears along time.
 Although the procession of python is a little slower compared with C,but the time saved in programming makes it worthy learning it!
+
+
+
+##The Realization of Display of Characters
+I have already updated my dispaly procedure version 1.0:https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/test1.py.  This little thing can display any characters in any order as you wish.However,in version 1.0 I have just added 6 characters 'A,I,M,O,U,Y',I will complete it little by little.But I didn't realize it in a big matrix,I just splitted a character into 5 rows,and saved every one in this way in five dictionaries as character strings,and finally put different characters together.
+
+And now I am concentrating on my version 2.0 to display a flash.
