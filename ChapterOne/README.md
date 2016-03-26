@@ -17,4 +17,4 @@ Root is a modular scirntific sofeware framwork.It provides all kinds of function
 There are many useful packages and headfiles in ROOT.It's itself a powerful calculation tools,and some packages useful to me to analyze deviation and plot.After including the headfiles,what I need to do is to create a canva and plotted on it!
 
 ###Realization
-1.Cutting off from Taylor Expansion is the core of Euler method.
+1.Cutting off from Taylor Expansion is the core of Euler method.![](http://latex.codecogs.com/gif.latex?\N_U($Delta$t)=N_U(0)+\frac{dN_U}{dt}$Delta$t+\frac{1}{2}frac\{d^2N_U}{dt^2}($Deltat$)^2+...)
