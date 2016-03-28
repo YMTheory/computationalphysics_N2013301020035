@@ -23,11 +23,18 @@ There are many useful packages and headfiles in ROOT.It's itself a powerful calc
 
 3.In my programme,I print three lines numbers which are the numerical results,analytical results and relative errors.And I plot two lines where the black one is the numerical result while the red one is the analytical result(the real one).Difference between the two is very small while dt=0.05.Also we can change the setting of dt,tau and other parameters to see the influence on the final results.
 
+4.With the same methods,I finished Ex4 in my textbook,where two nucleus are involved and nothing else is different.The two N_U couple with each other but the only thing I need to know is the gradient.Of course,we can also compare the numerical result and analytical result.
 ###Plotting
-![Radioactive decay](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterOne/RadiActivity.gif)
+Decay of one nucleus
+![Radioactive decay](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterOne/Activity.png)
+Decay of two nuclei
+![Dou_Decay](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterOne/Dou_Activity.png)
 
 ###Code
+Codes for decay of one nucleus
 https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterOne/Activity.cpp
+Codes for decay of two nuclei
+https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterOne/Dou_Activity.png
 
 ###Drawback
-1.I haven't plot errorbars in this version(they are so small that you can't see them even I plotted).
+1.I haven't plot errorbars in this version(they are so small that you can't see them even I plotted).`
