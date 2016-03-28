@@ -21,6 +21,9 @@ There are many useful packages and headfiles in ROOT.It's itself a powerful calc
 
 2.For a radioactive decay,we have that ![](http://latex.codecogs.com/gif.latex?\\frac{dN_U}{dt}=\frac{N_U}{tau}).According to the previous analysis,we obtain the result ![](http://latex.codecogs.com/gif.latex?\N_Udt=N_U0-\frac{N_U}{tau}*dt) with Euler method.Fortunately,this ODE is solveable,we can get the analytical method ![](http://latex.codecogs.com/gif.latex?\N_Ut=N_U0*Exp(\frac{t}{tau})).We can just compare these two results and plot them.
 
-3.
+3.In my programme,I print three lines numbers which are the numerical results,analytical results and relative errors.And I plot two lines where the black one is the numerical result while the red one is the analytical result(the real one).Difference between the two is very small while dt=0.05.Also we can change the setting of dt,tau and other parameters to see the influence on the final results.
+
+###Plotting
+![Radioactive decay](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterOne/RadiActivity.gif)
 
 
