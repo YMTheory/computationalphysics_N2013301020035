@@ -47,3 +47,6 @@ https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/m
 
 ###Drawback
 1.I haven't plot errorbars in this version(they are so small that you can't see them even I plotted).`
+
+
+###Glad to receive any questions and suggestion!
