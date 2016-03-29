@@ -19,7 +19,7 @@ double z[100];
 double X=0;
 double Y=0;
 double Z=0;
-void randomgenerator()
+void randomgenerator()/*generate 3 random numbers as radius,theta,phi*/
 {
 TRandom3 r;
 r.RndmArray(100,radius);
