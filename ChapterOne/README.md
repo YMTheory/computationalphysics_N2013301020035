@@ -48,5 +48,8 @@ https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/m
 ###Drawback
 1.I haven't plot errorbars in this version(they are so small that you can't see them even I plotted).`
 
+##Conclusion
+Euler method is based on the cutting off from Taylor Expansion.It only needs to know the first-order differentiation to solve ODE.So it depends on the step one choose,in theory,only if the step is small enough the method is effective.This method is powerful to numerically solve one-order ODE.
+
 
 ###Glad to receive any questions and suggestion!
