@@ -23,8 +23,7 @@ public:
 
    Init(double a,double b,double c,double d);
    Nextstep();
- //  tmpX();
-//   tmpY();
+   Intersection();
    Plot();
 
 };
@@ -54,81 +53,38 @@ Projectile::Nextstep(int i)  //how to get next position and velocity with Euler 
 return;
 } 
 
-
-Projectile::Plot()  //Vector->Array and plot in ROOT
+Projectile::Intersection()    //Obtain the intersection to the ground
 {
-  int n;
-  n = x.size();
- // cout<<n<<endl;
-  double *X = new double[n];
-  double *Y = new double[n];
-  double *VX = new double[n];
-  double *VY = new double[n];
+    float g = 9.8;
+    double dt = 0.001;
 
-double X1,Y1,VX1,VY1;
-VX1 = vx[n-1];
-X1 = x[n-1]+vx[n-1]*dt;
-VY1 = vy[n-1]-g*dt;
-Y1 = y[n-1]+vy[n-1]*dt;
-
-//cout<<"Hey!"<<X1<<" "<< Y1<<endl;
-
-  for(int j=0;j<n-1;j++)
-{if(j<n-2){
- X[j] = x[j];
- Y[j] = y[j];
- VX[j] = vx[j];
- VY[j] = vy[j];
+ double X1,Y1;
+ X1 = x.back()+vx.back()*dt;
+ Y1 = y.back()+vy.back()*dt;
+ x.push_back(X1);
+ y.push_back(Y1);
+return;
 }
-else
+
+
+
+Projectile::Plot()   //Plot in ROOT
 {
-X[j] =  x[n-1]-(x[n-1]-X1)/(y[n-1]-Y1)*y[n-1];
-Y[j] = 0;
-}
-//cout<<X[j]<<" "<<Y[j]<<endl;
-}
 
-
-
-
+   int n;
+   n=x.size();
    TCanvas *ym = new TCanvas("projectile","projectile",1200,1000);
-   TGraph *g1=new TGraph(n,X,Y);
+   TGraph *g1=new TGraph(n,&x[0],&y[0]);
    g1->SetTitle("Projectile");
    g1->GetXaxis()->SetTitle("x");
    g1->GetYaxis()->SetTitle("y");
-   g1->GetXaxis()->SetLimits(0,6);
+   g1->GetXaxis()->SetLimits(0,2200);
+   g1->GetYaxis()->SetLimits(0,500);
    g1->SetMarkerSize(2);
-//   g1->SetLineWidth(1.5);
    g1->Draw("AP");
 
 return;
 }
-
-/*
-Projectile::xToArray()
-{
- 
- n = x.size();
- double *X = new double[n];
- double X1,Y1,VX1,VY1;
- VX1 = vx[n-1];
- X1 = x[n-1]+vx[n-1]*dt;
- VY1 = vy[n-1]-g*dt;
- Y1 = y[n-1]+vy[n-1]*dt;
-  for(int j=0;j<n-1;j++)
-{if(j<n-2){
- X[j] = x[j];
-}
-else
-{
-X[j] =  x[n-1]-(x[n-1]-X1)/(y[n-1]-Y1)*y[n-1];
-}
-//cout<<X[j]<<endl;
-}
-return;
-}
-*/
-
 
 /***************************************************************************************************************************************/
 
@@ -143,15 +99,13 @@ void Nextstep(int i){
 
   float g = 9.8;
   double dt = 0.001;
-  double b2m = 0.4;
+  double b2m = 0.00004;
   double v = sqrt(vx[i]*vx[i]+vy[i]*vy[i]);
 
   vx.push_back(vx[i]-b2m*v*vx[i]*dt);
   x.push_back(x[i]+vx[i]*dt);
   vy.push_back(vy[i]-g*dt-b2m*dt*v*vy[i]);
   y.push_back(y[i] + vy[i]*dt);
- // cout<<x[i]<<"    "<<y[i]<<endl;
-//if(y[i]>1.2){cout<<i<<" "<<x[i]<<" "<<y[i]<<endl;}
 return;
 }
 };
@@ -167,16 +121,15 @@ void Nextstep(int i){
 
   float g = 9.8;
   double dt = 0.001;
-  double b2m = 0.04;
+  double b2m = 0.00004;
   int y0 = 10000;
   double v = sqrt(vx[i]*vx[i]+vy[i]*vy[i]);
+
   vx.push_back(vx[i]-b2m*v*vx[i]*dt*exp(-y[i]/y0));
   x.push_back(x[i]+vx[i]*dt);
   vy.push_back(vy[i]-g*dt-b2m*dt*v*vy[i]*exp(-y[i]/y0));
   y.push_back(y[i] + vy[i]*dt);
 
- // cout<<x[i]<<"    "<<y[i]<<endl;
-//if(y[i]>1.2){cout<<i<<" "<<x[i]<<" "<<y[i]<<endl;}
 return;
 }
 };
@@ -191,22 +144,12 @@ void Nextstep(int i){
 
   float g = 9.8;
   double dt = 0.001;
-  double b2m = 0.04;
+  double b2m = 0.00004;
   float a = 0.0065;
   double T0 = 290;
   float alpha = 2.5;
   double v = sqrt(vx[i]*vx[i]+vy[i]*vy[i]);
- /* if(y[i]>=0){
-  vx[i+1] = vx[i]-b2m*v*vx[i]*dt*pow((1-a*y[i]/T0),alpha);
-  x[i+1] = x[i]+vx[i]*dt;
-  vy[i+1] = vy[i]-g*dt-b2m*dt*v*vy[i]*pow((1-a*y[i]/T0),alpha);
-  y[i+1] = y[i] + vy[i]*dt;}
-  else
-  {x[i+1]=x[i];
-   y[i+1]=vx[i+1]=vy[i+1]=0;}
- // cout<<x[i]<<"    "<<y[i]<<endl;
-//if(y[i]>1.2){cout<<i<<" "<<x[i]<<" "<<y[i]<<endl;}
-*/
+  
   vx.push_back(vx[i]-b2m*v*vx[i]*dt*pow((1-a*y[i]/T0),alpha));
   x.push_back(x[i]+vx[i]*dt);
   vy.push_back(vy[i]-g*dt-b2m*dt*v*vy[i]*pow((1-a*y[i]/T0),alpha));
@@ -220,54 +163,71 @@ return;
 void projectile()
 {
 
-Projectile cannon;
-cannon.Init(2,1,5,1);
-int i =0;
+Projectile cannon0;
+ResisProjectile cannon1;
+IsothProjectile cannon2;
+AdiProjectile cannon3;
+cannon0.Init(0,0,200,200);
+cannon1.Init(0,0,200,200);
+cannon2.Init(0,0,200,200);
+cannon3.Init(0,0,200,200);
+int i0 =0;
 do
 {
-cannon.Nextstep(i);
-i++;}
-while(cannon.y[i]>=0);
-int n;
-n = cannon.x.size();
-cout<<n<<endl;
-//cannon.xToArray();
-//cout<<X[12]<<endl;
-
- double *X = new double[n];     //I hven't solve how to visit parameters in the function of class,so this part is too complicated! -_-!
- double *Y = new double[n];
- double X1,Y1,VX1,VY1;
- VX1 = cannon.vx[n-1];
- X1 = cannon.x[n-1]+cannon.vx[n-1]*cannon.dt;
- VY1 = cannon.vy[n-1]-cannon.g*cannon.dt;
- Y1 = cannon.y[n-1]+cannon.vy[n-1]*cannon.dt;
- cout<<X1<<endl;
-  for(int j=0;j<n-1;j++)
-{if(j<n-2){
- X[j] = cannon.x[j];
- Y[j] = cannon.y[j];
-}
-else
+cannon0.Nextstep(i0);
+i0++;}
+while(cannon0.y[i0]>=0);
+int i1 =0;
+do
 {
-X[j] =  cannon.x[n-1]-(cannon.x[n-1]-X1)/(cannon.y[n-1]-Y1)*cannon.y[n-1];
-Y[j] = 0;
-}
-//cout<<X[j]<<endl;
-}
+cannon1.Nextstep(i1);
+i1++;}
+while(cannon1.y[i1]>=0);
+int i2 =0;
+do
+{
+cannon2.Nextstep(i2);
+i2++;}
+while(cannon2.y[i2]>=0);
+int i3 =0;
+do
+{
+cannon3.Nextstep(i3);
+i3++;}
+while(cannon3.y[i3]>=0);
 
+cannon0.Intersection();
+cannon1.Intersection();
+cannon2.Intersection();
+cannon3.Intersection();
+
+int n0,n1,n2,n3;
+n0 = cannon0.x.size();
+n1 = cannon1.x.size();
+n2 = cannon2.x.size();
+n3 = cannon3.x.size();
 
 
    TCanvas *ym = new TCanvas("projectile","projectile",1200,1000);
-   TGraph *g1=new TGraph(n,X,Y);
-   g1->SetTitle("Projectile");
-   g1->GetXaxis()->SetTitle("x");
-   g1->GetYaxis()->SetTitle("y");
+   TGraph *g0=new TGraph(n0,&cannon0.x[0],&cannon0.y[0]);
+   TGraph *g1=new TGraph(n1,&cannon1.x[0],&cannon1.y[0]);
+   TGraph *g2=new TGraph(n2,&cannon2.x[0],&cannon2.y[0]);
+   TGraph *g3=new TGraph(n3,&cannon3.x[0],&cannon3.y[0]);
+   g0->SetTitle("Projectile");
+   g0->GetXaxis()->SetTitle("x/m");
+   g0->GetYaxis()->SetTitle("y/m");
+   g0->GetYaxis()->SetRangeUser(0,2500);
+   g0->SetMarkerColor(1);
    g1->SetMarkerColor(2);
-//   g1->SetLineWidth(1.5);
-   g1->Draw("AP");
-  // g2->Draw("Psame");
+   g2->SetMarkerColor(3);
+   g3->SetMarkerColor(4);
+  // g2->SetMarkerStyle(21);
+ //  g1->SetLineWidth(1.5);
+   g0->Draw("AP");
+   g1->Draw("Psame");
+   g2->Draw("Psame");
+   g3->Draw("Psame");
 //cannon.Plot();
-
 return;
 }
 
