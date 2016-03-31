@@ -227,6 +227,16 @@ n3 = cannon3.x.size();
    g1->Draw("Psame");
    g2->Draw("Psame");
    g3->Draw("Psame");
+   TLegend *legend = new TLegend(.75,.80,.95,.95);
+   legend->AddEntry(g0,"ideal projectile");
+   legend->AddEntry(g1,"projectile with air resistance");
+   legend->AddEntry(g2,"isothermal model");
+   legend->AddEntry(g3,"adiabatic");
+   legend->Draw();
+
+
+
+
 //cannon.Plot();
 return;
 }
