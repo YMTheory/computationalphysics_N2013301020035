@@ -32,7 +32,7 @@ and in adiabatic model,the dependence is
 ![four 1-order](http://latex.codecogs.com/gif.latex?%5Cfrac%7Bdx%7D%7Bdt%7D%3Dv_x%2C%5Cfrac%7Bdv_x%7D%7Bdt%7D%3D0%2C%5Cfrac%7Bdy%7D%7Bdt%7D%3Dv_y%2C%5Cfrac%7Bdv_y%7D%7Bdt%7D%3D-g)
 To use Euler method,we write each derivation in finite difference form as:
 
-![finite](http://latex.codecogs.com/gif.latex?F%5E*_%7Bdrag%7D%3D%5Cfrac%7Bp%7D%7Bp_0%7DF_%7Bdrag%7D%28y%3D0%29).
+![finite](http://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20x_%7Bi&plus;1%7D%3Dx_i&plus;v_%7Bx%2Ci%7D%5CDelta%20t%5C%5C%20v_%7Bx%2Ci&plus;1%7D%3Dv_%7Bx%2Ci%7D%5C%5C%20y_%7Bi&plus;1%7D%3Dy_i&plus;v_%7By%2Ci%7D%5CDelta%20t%5C%5C%20v_%7By%2Ci&plus;1%7D%3Dv_%7By%2Ci%7D%20-g%5CDelta%20t%5C%5C%20%5Cend%7Bcases%7D).
 
 And then we can apply Euler method as what we did in Chapter 1.
 
