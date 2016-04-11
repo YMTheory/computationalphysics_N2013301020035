@@ -1,11 +1,15 @@
 #Study of Chapter 2
 
 ##Abstract
-In this chapter we ues Euler method futher to solve the projectile problem.By considering the air resistance and change of pressure along with altitude both in isothermal and adiabatic model,it is impossible to sovle the ODE with analytical method,and the only way is numerical method--here we apply Euler mhthod.
+In this chapter we ues Euler method futher to solve the projectile problem.By considering the air resistance and change of pressure along with altitude both in isothermal and adiabatic model,it is impossible to sovle the ODE with analytical method,and the only way is numerical method--here we apply Euler mhthod.Also,I also considered that there might be gaussian errors in velocity and firing angle when we shoot a target.Therefore,a reasonable cutting off is necessary to be under consideration.
 
 ##Content
 ###Demand
 Consider a ball or a cannon shell or anything else projected in two dimension.If we are given initial condition(position and velocity),we are supposed to know the exact infomation of it in theory.However,if air resistance are invovled in,it is difficult to obtain the analytical result.So we can only calculate the numerical solution and errors and compare different results.
+
+Furthermore,we can consider such a situation that a target is given,we should choose velocity and firing angle to make sure that the shell hit the target in a allowable error area.The method in this case is scanning.We must first calculate the corresponding firing angle to the maximum distance first,then we fix this angle and scan the velocity until we hit the target.Every time we get a feedback that it is too close or far away,and according to the result we should adjust the velocity in some way to get close the target until achieving our goal.
+
+Also,if I put the initial errors under consideration,it is even more complicated and interesting.Because we can't even make sure that where exactly our shell will hit in the end.What we can do is to simulate--supposing we shoot many shells totally with guassian error,and we can gather statistics the droopping points of all these shells and calculate the possibility that the shell hitting the target within the error range.
 
 ###Theory
 1.Under ideal projectile situation,we have
@@ -36,7 +40,11 @@ To use Euler method,we write each derivation in finite difference form as:
 
 And then we can apply Euler method as what we did in Chapter 1.
 
-2.With the same method,we can solve the problems with air resistance even with changable pressure.What we need to do is write down the four finite equation and calculate the next condition repeatly.
+2.With the same method,we can solve the problems with air resistance even with changable pressure.What we need to do is writing down the four finite equations and calculate the next condition repeatly.
+
+3.In the hitting targets task,what I need to do is actually multi-parameters optimization.First I get the maximum firing angle with Euler method in our model.Then I fix firing angle and scan velocity.Everytime a feedback "too close" or "to remote" will be returned.According to the feedback I change velocity repeatly until within the allowable error range.
+
+4.It is more complicated to consider the error in velocity and firing angle--this is to say that we don't know exactly the initial condition of our shells.We can suppose that the dropping points will show distribution.I use random number generators in ROOT to generate guassian distribution numbers for velocity and angle.And I fill a histogram to count the number of different dropping points shells.What I can do next is to calculate the possibility of hitting the target within the error range.
 
 ###Plot
 ![plotting](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/projectile.png)
@@ -45,3 +53,5 @@ And then we can apply Euler method as what we did in Chapter 1.
 In this homework,I try programming with "class".The most important thing is to write the class of the simplest projectile stuff--I write "init","Nextstep","Intersection" and "plot" functions.And then the only thing I need to do is to modify the "Nextstep" function to write the air resisitance classes.
 Codes for projectile cannon shell:
 https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/projectile.cpp
+
+I didn't restart a new programme to realize my task,I just continue to write down after the old one.If I want to make the programme more independent and readable,maybe I sholud declare my class in a head file and restart different programmes which just need to involve the head file.
