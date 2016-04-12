@@ -51,9 +51,15 @@ And then we can apply Euler method as what we did in Chapter 1.
 
 This is the trajectories of 4 different models.
 
+![shooting](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/shooting.png)
+
+This is a shooting with v=2000m/s and firing angle 0.785398,and the hitting point comes out 3498.08. 
+
 ![gauss](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/distance.png)
 
 This is the final hitting points distribution with target height 500m.
+
+Comparing the result of one shooting and the statistic results,we can see that with consideration of gaussian distribution of velocity and firing angle,the hitting points show as gaussian distribution also.I totally shoot 3000 shells and according to the statistic results,there are 1122 shells drop into the range between +-100m from the center point.
 
 
 ###Codes
