@@ -49,6 +49,13 @@ And then we can apply Euler method as what we did in Chapter 1.
 ###Plot
 ![plotting](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/projectile.png)
 
+This is the trajectories of 4 different models.
+
+![gauss](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/distance.png)
+
+This is the final hitting points distribution with target height 500m.
+
+
 ###Codes
 In this homework,I try programming with "class".The most important thing is to write the class of the simplest projectile stuff--I write "init","Nextstep","Intersection" and "plot" functions.And then the only thing I need to do is to modify the "Nextstep" function to write the air resisitance classes.
 Codes for projectile cannon shell:

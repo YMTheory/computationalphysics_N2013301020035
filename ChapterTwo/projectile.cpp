@@ -3,6 +3,7 @@
 #include"TMath.h"
 #include"TGraph.h"
 #include<cmath>
+#include"TPaveText.h"
 using namespace std;
 
 
@@ -14,17 +15,22 @@ public:
   float g = 9.8;
   double dt =0.01;
 
+  double X1,Y1,X2,X3;  
+
   vector<double> x;   //Use vector for I don't know the size of array before
   vector<double> y;
   vector<double> vx;
   vector<double> vy;
-
+  vector<double> distance;
 
 
    Init(double a,double b,double c,double d);
    Nextstep();
    Intersection();
    Plot();
+   MaxDistance();
+   Shoot();
+   Delete();
 
 };
 
@@ -33,21 +39,21 @@ Projectile::Init(double a,double b,double c,double d) //initial condition
 {
  x.push_back(a);
  y.push_back(b);
- vx.push_back(c);
- vy.push_back(d);
-
+ vx.push_back(c*cos(d));
+ vy.push_back(c*sin(d));
+ //cout<<x.back()<<" "<<y.back()<<" "<<vx.back()<<" "<<vy.back()<<endl;
  return;
 }
 
-Projectile::Nextstep(int i)  //how to get next position and velocity with Euler method
+Projectile::Nextstep()  //how to get next position and velocity with Euler method
 {
 
     float g = 9.8;
     double dt = 0.001;
-  vx.push_back(vx[i]);
-  x.push_back(x[i]+vx[i]*dt);
-  vy.push_back(vy[i]-g*dt);
-  y.push_back(y[i] + vy[i]*dt);
+  vx.push_back(vx.back());
+  x.push_back(x.back()+vx.back()*dt);
+  vy.push_back(vy.back()-g*dt);
+  y.push_back(y.back() + vy.back()*dt);
  // cout<<x[i]<<" "<<y[i]<<endl;
 
 return;
@@ -58,11 +64,16 @@ Projectile::Intersection()    //Obtain the intersection to the ground
     float g = 9.8;
     double dt = 0.001;
 
- double X1,Y1;
  X1 = x.back()+vx.back()*dt;
  Y1 = y.back()+vy.back()*dt;
- x.push_back(X1);
- y.push_back(Y1);
+ X2 = X1-(X1-x.back())/(Y1-y.back())*Y1;
+ x.push_back(X1-(X1-x.back())/(Y1-y.back())*Y1);
+ y.push_back(0);
+ //distance.push_back(x.back());
+ //double max = 0;
+// if(max < distance.back()){max = distance.back();}
+// cout<<max<<endl;
+ 
 return;
 }
 
@@ -78,12 +89,57 @@ Projectile::Plot()   //Plot in ROOT
    g1->SetTitle("Projectile");
    g1->GetXaxis()->SetTitle("x");
    g1->GetYaxis()->SetTitle("y");
-   g1->GetXaxis()->SetLimits(0,2200);
-   g1->GetYaxis()->SetLimits(0,500);
+  // g1->GetXaxis()->SetLimits(0,2200);
+   //g1->GetYaxis()->SetLimits(0,500);
    g1->SetMarkerSize(2);
    g1->Draw("AP");
 
 return;
+}
+
+Projectile::MaxDistance()
+{
+
+  int m;
+  m = distance.size();
+  for(int j=0;j<m;j++)
+  {
+  double tmp=0;
+  int num=0;
+  cout<<distance[j]<<endl;
+   if(tmp<distance[j])
+   {tmp = distance[j];
+    num = j;}
+  }
+cout<<tmp<<" "<<num<<endl;
+return;
+}
+
+
+Projectile::Shoot(double a)
+{
+    float g = 9.8;
+    double dt = 0.001;
+
+ X1 = x.back()+vx.back()*dt;
+ Y1 = y.back()+vy.back()*dt;
+ X3 = X1-(X1-x.back())/(Y1-y.back())*Y1+a*(X1-x.back())/(Y1-y.back());
+ x.push_back(X3);
+ y.push_back(a);
+
+return:
+
+}
+
+Projectile::Delete()
+{
+   int n;
+   n = x.size();
+   for(int i=0;i<n;i++)
+   {x.pop_back();
+    y.pop_back();
+    vx.pop_back();
+    vy.pop_back();}
 }
 
 /***************************************************************************************************************************************/
@@ -163,7 +219,8 @@ return;
 void projectile()
 {
 
-Projectile cannon0;
+/****************************************************Four different motions*******************************************************************/
+/*Projectile cannon0;
 ResisProjectile cannon1;
 IsothProjectile cannon2;
 AdiProjectile cannon3;
@@ -233,11 +290,133 @@ n3 = cannon3.x.size();
    legend->AddEntry(g2,"isothermal model");
    legend->AddEntry(g3,"adiabatic");
    legend->Draw();
+*/
+
+/********************************************Maximum Distance firing angle********************************************************************/
+/*
+Projectile ball;
+for(int j=0;j<500;j++)
+{ 
+  
+//cout<<j<<endl;
+  ball.Init(0,0,360,j*0.001*3.1415926);       //fixing the firing velocity and change firing angle for the maximum distance with error in  0.001*Pi but this way is too slow!
+
+  int i =0;
+  do
+ {ball.Nextstep();}
+  while(ball.y.back()>=0);
+ ball.Intersection();
+ ball.distance.push_back(ball.X2);
+ double max=0;
+ double angle = 0;
+ if(max<ball.X2)
+ {max=ball.X2;
+  angle=j*0.001*3.141592653;
+ }
+}
+cout<<max<<" "<<angle<<endl;
+//ball.MaxDistance();
+//cannon.Plot();*/
+
+
+/************************************************************Shoot a given target************************************************************/
+
+double targetx,targety;
+/*cout<<"Set x position of the target:"<<endl;
+cin>>targetx;
+cout<<"Set y position of the target:"<<endl;
+cin>>targety;*/
+targety = 500;
+
+//Projectile shell;
+//cannon.Init(0,0,200,1.56765);
+
+
+double angle[3000];
+double velocity[3000];
+double distribution[3000];
+TRandom3 r1,r2;
+for(int i=0;i<3000;i++)
+{
+velocity[i] = r1.Gaus(200,5);
+angle[i]=r2.Gaus(0.785398,0.1);
+//cout<<angle[i]<<" "<<velocity[i]<<endl;
+}
+
+ 
+
+  for(int j=0;j<3000;j++)
+  {
+    Projectile *shell;
+    shell = new Projectile;
+ //   cout<<velocity[0]<<" "<<angle[j]<<endl;
+    shell->Init(0,0,velocity[j],angle[0]);
+//    cout<<shell->x.back()<<" "<<shell->y.back()<<" "<<shell->vx.back()<<" "<<shell->vy.back()<<endl;
+
+    double tmp = -10;
+do
+{
+shell->Nextstep();
+if(tmp>=shell->y.back())
+{break;}
+tmp = shell->y.back();
+//cout<<shell.x.back()<<shell.y.back()<<endl;
+}while(shell->y.back()>0);
+do
+{shell->Nextstep();}
+//cout<<shell.x.back()<<shell.y.back()<<endl;}
+while(shell->y.back()>targety);
+shell->Shoot(targety);
+//cout<<shell.x.back()<<endl;
+    distribution[j] = shell->X3;
+//    cout<<j<<"  "<<endl;
+//    shell.Delete();
+//    shell->Plot();
+    delete shell;
+} 
+
+
+
+  TCanvas *c1 = new TCanvas("distribution","distribution",1200,1000);
+  TH1F *h1 = new TH1F("h1","distance",200,2700,4500);
+  h1->SetTitle("Distance of given height");
+  h1->GetXaxis()->SetTitle("x/m");
+  h1->GetYaxis()->SetTitle("counts");
+  for(int i=0;i<3000;i++) 
+  { h1->Fill(distribution[i]);}
+  h1->Draw();
+
+   TPaveText *pt = new TPaveText(0.6,0.7,0.98,0.98,"brNDC");
+   pt->SetFillColor(18);
+   pt->SetTextAlign(12);
+   pt->AddText("velocity(200,5)");
+   pt->AddText("angle(0.785398,0.1)");
+   pt->Draw();
 
 
 
 
-//cannon.Plot();
+
+/*******************************************************TEST*****************************************************************************/
+/*
+Projectile cannon;
+cannon.Init(0,0,200,0.785398);
+double tmp;
+do
+{
+cannon.Nextstep();
+if(tmp>=cannon.y.back())
+{break;}
+tmp = cannon.y.back();
+}while(cannon.y.back()>0);
+do
+{cannon.Nextstep();}
+while(cannon.y.back()>500);
+cannon.Shoot(500);
+cout<<cannon.X3<<endl;
+cannon.Plot();
+*/
+
 return;
 }
 
