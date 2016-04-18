@@ -1,4 +1,4 @@
-###Study of Chapter Three
+#Study of Chapter Three
 
 ##Info
 Author:YuMiao
@@ -30,5 +30,16 @@ Here we introduce two new methods--Euler-Cromer method and Runge-Kutta method,wh
 2.Runge-Kutta Method:Choosing a suitable slope.The only difference between Euler method and Euler-Cromer method is che choice of slope.In Runge-Kutta method,neither the slope of the old point nor the slope of the new point is used,instead,we calculate a new slope which can make the error decreases to fourth order.![Runge-Kutta](http://latex.codecogs.com/gif.latex?x%28t&plus;%5CDelta%20t%29%3Dx%28t%29&plus;%5Cfrac%7B1%7D%7B6%7D%5Bf%28x_1%27%2Ct_1%27%29&plus;2f%28x_2%27%2Ct_2%27%29&plus;2f%28x_3%27%2Ct_3%27%29&plus;f%28x_4%27%2Ct_4%27%29%5D)
 ![RK](http://latex.codecogs.com/gif.latex?%5Cbegin%7Bcases%7D%20%26%5Ctext%20x_1%27%3Dx%28t%29%2Ct_1%27%3Dt%5C%5C%20%26%20%5Ctext%20x_2%27%3Dx%28t%29&plus;%5Cfrac%7B1%7D%7B2%7Df%28x_1%27%2Ct_1%27%29%5CDelta%20t%2Ct_2%27%3Dt&plus;%5Cfrac%7B1%7D%7B2%7D%5CDelta%20t%5C%5C%20%26%20%5Ctext%20x_3%27%3Dx%28t%29&plus;%5Cfrac%7B1%7D%7B2%7Df%28x_2%27%2Ct_2%27%29%5CDelta%20t%2Ct_3%27%3Dt&plus;%5Cfrac%7B1%7D%7B2%7D%5CDelta%20t%5C%5C%20%26%20%5Ctext%20x_4%27%3Dx%28t%29&plus;f%28x_3%27%2Ct_3%27%29%5CDelta%20t%2Ct_4%27%3Dt&plus;%5CDelta%20t%5C%5C%20%5Cend%7Bcases%7D).
 
-###Plots
+3.What we should be concernd about is that Runge-Kutta is powerful for first-order equation while Euler-Cromer method is for second-order.And in our problem,to avoid diversion,we must choose Euler-Cromer method.But for each first-order equation,Euler method and Runge-Kutta method are both effective.
 
+###Plots
+First I list different results for the simplest problem:![harmonic](http://latex.codecogs.com/gif.latex?%5Cfrac%7Bd%5E2%5Ctheta%7D%7Bdt%5E2%7D%3D-%5Cfrac%7Bg%7D%7Bl%7D%5Ctheta).
+
+![pendulum1](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/pendulum1.png)
+We can see that the method for omega decides the results majorly.The results with the same method for omega are close to each other.I will list the difference among these results later.
+
+Then I list different results for problem3.4 which seems as ![3.4](http://latex.codecogs.com/gif.latex?%5Cfrac%7Bd%5E2%5Ctheta%7D%7Bdt%5E2%7D%3D-%5Ctheta%5E3) for anharmonic oscillator.
+
+![pendulum2](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/pendulum2.png)
+
+Here the difference is samll in these first several periods.Also,I will list the difference data later.
