@@ -48,7 +48,9 @@ Here the difference is samll in these first several periods.Also,I will list the
 Adding the square of difference on each point and calculate the average--for ![3.4](http://latex.codecogs.com/gif.latex?%5Cfrac%7Bd%5E2%5Ctheta%7D%7Bdt%5E2%7D%3D-%5Ctheta%5E3) we have:
 
 Euler & Runge-kutta:0.00012258
+
 Euler-RK & Runge-Kutta:0.00215825
+
 RK-Euler & Euler:0.00130114
 
 ###Codes
