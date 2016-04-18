@@ -18,7 +18,7 @@ In this chapter,two more methods,Euler-Cromer method and Runge-Kutta method are 
 
 ###Introduction
 In previous chapters,we apply simple Euler method to solve ODEs and can get reasonable results.Now we consider oscillatory motion--one of themost common motion in physics,whose motion equation has the form of .But when we apply simple Euler method to solve this equation,we will get a weird result which diverges as follows:
-![diversion](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/diversion.png)
+![diversion](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterThree/diversion.png)
 
 We can see energy diverges with time increasing.This is not physically reasonable,but if we think Euler method carefully we can understand this result easily.In Euler method,we omit the second and higher order terms and calculate.So the error will always be positive and accumulate more and more.This will result in inherent unstability of numerical method.Here we consider the total energy of the pendulum--![energy](http://latex.codecogs.com/gif.latex?E%3D%5Cfrac%7B1%7D%7B2%7Dml%5E2%5Comega%20%5E2&plus;mgl%281-cos%5Ctheta%29) .In the limit of small thata the energy reduces into ![limit](http://latex.codecogs.com/gif.latex?E%3D%5Cfrac%7B1%7D%7B2%7Dml%5E2%28%5Comega%5E2&plus;%5Cfrac%7Bg%7D%7Bl%7D%5Ctheta%5E2%29).So we have ![difference](http://latex.codecogs.com/gif.latex?E_%7Bi&plus;1%7D%3DE_i&plus;%5Cfrac%7B1%7D%7B2%7Dmgl%28%5Comega_i%5E2&plus;%5Cfrac%7Bg%7D%7Bl%7D%5Ctheta_i%5E2%29%28%5CDelta%20t%29%5E2).For this reason,some more numerical methods are introduced for our problems.
 
@@ -33,13 +33,26 @@ Here we introduce two new methods--Euler-Cromer method and Runge-Kutta method,wh
 3.What we should be concernd about is that Runge-Kutta is powerful for first-order equation while Euler-Cromer method is for second-order.And in our problem,to avoid diversion,we must choose Euler-Cromer method.But for each first-order equation,Euler method and Runge-Kutta method are both effective.
 
 ###Plots
-First I list different results for the simplest problem:![harmonic](http://latex.codecogs.com/gif.latex?%5Cfrac%7Bd%5E2%5Ctheta%7D%7Bdt%5E2%7D%3D-%5Cfrac%7Bg%7D%7Bl%7D%5Ctheta).
+First I list different results for the simplest problem:![harmonic](http://latex.codecogs.com/gif.latex?%5Cfrac%7Bd%5E2%5Ctheta%7D%7Bdt%5E2%7D%3D-%5Cfrac%7Bg%7D%7Bl%7D%5Ctheta) with g=9.8 and l=1.
 
-![pendulum1](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/pendulum1.png)
+![pendulum1](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterThree/pendulum1.png)
 We can see that the method for omega decides the results majorly.The results with the same method for omega are close to each other.I will list the difference among these results later.
 
 Then I list different results for problem3.4 which seems as ![3.4](http://latex.codecogs.com/gif.latex?%5Cfrac%7Bd%5E2%5Ctheta%7D%7Bdt%5E2%7D%3D-%5Ctheta%5E3) for anharmonic oscillator.
 
-![pendulum2](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/pendulum2.png)
+![pendulum2](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterThree/pendulum2.png)
 
 Here the difference is samll in these first several periods.Also,I will list the difference data later.
+
+###Comparison
+Adding the square of difference on each point and calculate the average--for ![3.4](http://latex.codecogs.com/gif.latex?%5Cfrac%7Bd%5E2%5Ctheta%7D%7Bdt%5E2%7D%3D-%5Ctheta%5E3) we have:
+
+Euler & Runge-kutta:0.00012258
+Euler-RK & Runge-Kutta:0.00215825
+RK-Euler & Euler:0.00130114
+
+###Codes
+https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterThree/pendulum.cpp
+
+###Questions
+In my programme,I keep meeting problems on the stability of numerical calculation.Is under any circumstances,Runge-Kutta method better than simple Euler method?The result of my programme is NOT!Maybe I made some mistake which I didn't realize in it.So I'm eager to receive any suggestion and help!
