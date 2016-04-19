@@ -87,8 +87,8 @@ Projectile::Plot()   //Plot in ROOT
    TCanvas *ym = new TCanvas("projectile","projectile",1200,1000);
    TGraph *g1=new TGraph(n,&x[0],&y[0]);
    g1->SetTitle("Projectile");
-   g1->GetXaxis()->SetTitle("x");
-   g1->GetYaxis()->SetTitle("y");
+   g1->GetXaxis()->SetTitle("x/m");
+   g1->GetYaxis()->SetTitle("y/m");
   // g1->GetXaxis()->SetLimits(0,2200);
    //g1->GetYaxis()->SetLimits(0,500);
    g1->SetMarkerSize(2);
@@ -321,37 +321,52 @@ cout<<max<<" "<<angle<<endl;
 
 /************************************************************Shoot a given target************************************************************/
 
-double targetx,targety;
+//double targetx,targety;
 /*cout<<"Set x position of the target:"<<endl;
 cin>>targetx;
 cout<<"Set y position of the target:"<<endl;
 cin>>targety;*/
-targety = 500;
+//targety = 500;
 
 //Projectile shell;
 //cannon.Init(0,0,200,1.56765);
 
-
-double angle[3000];
-double velocity[3000];
-double distribution[3000];
+//float scanning(double a,double b)
+//{
+int max=-10;
+double anglemax=-10;
+double velocitymax=-10;
+vector<int> Count;
+vector<double> Angle;
+vector<double> Velocity;
+double a=97;
+while(1){
+if(a>96 && a<103){
+double b=0.6981;
+ while(1){
+ if(b>0.6980 && b<0.8727)
+{double targety = 5;
+double angle[10];
+double velocity[10];
+vector<double> distribution;
 TRandom3 r1,r2;
-for(int i=0;i<3000;i++)
+for(int i=0;i<10;i++)
 {
-velocity[i] = r1.Gaus(200,5);
-angle[i]=r2.Gaus(0.785398,0.1);
+velocity[i] = r1.Gaus(a,5);
+angle[i]=r2.Gaus(b,0.05);
 //cout<<angle[i]<<" "<<velocity[i]<<endl;
 }
 
- 
-
-  for(int j=0;j<3000;j++)
+ int count=0;
+for(int i=0;i<10;i++)
+{
+  for(int j=0;j<10;j++)
   {
     Projectile *shell;
     shell = new Projectile;
- //   cout<<velocity[0]<<" "<<angle[j]<<endl;
-    shell->Init(0,0,velocity[j],angle[0]);
-//    cout<<shell->x.back()<<" "<<shell->y.back()<<" "<<shell->vx.back()<<" "<<shell->vy.back()<<endl;
+  //  cout<<velocity[j]<<" "<<angle[i]<<endl;
+    shell->Init(0,0,velocity[j],angle[i]);
+   // cout<<shell->x.back()<<" "<<shell->y.back()<<" "<<shell->vx.back()<<" "<<shell->vy.back()<<endl;
 
     double tmp = -10;
 do
@@ -364,27 +379,53 @@ tmp = shell->y.back();
 }while(shell->y.back()>0);
 do
 {shell->Nextstep();}
-//cout<<shell.x.back()<<shell.y.back()<<endl;}
 while(shell->y.back()>targety);
 shell->Shoot(targety);
 //cout<<shell.x.back()<<endl;
-    distribution[j] = shell->X3;
+    distribution.push_back(shell->X3);
 //    cout<<j<<"  "<<endl;
 //    shell.Delete();
 //    shell->Plot();
-    delete shell;
-} 
+//    delete shell;
+if(shell->X3>900 && shell->X3<1100)
+{count++;}
+//cout<<shell->X3<<endl;
+delete shell;
+}
+}
+cout<<count<<endl;
+if(count>max){
+max = count;
+anglemax = b;
+velocitymax = a;}
 
+Angle.push_back(b);
+Velocity.push_back(a);
+Count.push_back(count);
 
+}
+else{break;}
+b+=0.1;
+}
+}
+else{break;}
+a+=2;}
+cout<<max<<" "<<anglemax<<" "<<velocitymax<<endl;
 
+  int n;
+  n = Count.size();
+  cout<<n<<endl;
   TCanvas *c1 = new TCanvas("distribution","distribution",1200,1000);
-  TH1F *h1 = new TH1F("h1","distance",200,2700,4500);
-  h1->SetTitle("Distance of given height");
-  h1->GetXaxis()->SetTitle("x/m");
-  h1->GetYaxis()->SetTitle("counts");
-  for(int i=0;i<3000;i++) 
-  { h1->Fill(distribution[i]);}
-  h1->Draw();
+  TGraph2D *dt = new TGraph2D();
+  for(int k=0;k<n;k++)
+  {int x;
+   double y,z;
+  x = Angle[k];
+  y = Velocity[k];
+  z = Count[k];
+  dt->SetPoint(k,x,y,z);}
+  dt->Draw("APL");
+   
 
    TPaveText *pt = new TPaveText(0.6,0.7,0.98,0.98,"brNDC");
    pt->SetFillColor(18);
@@ -397,8 +438,68 @@ shell->Shoot(targety);
 
 
 
-/*******************************************************TEST*****************************************************************************/
+
 /*
+//cout<<count<<endl;
+//vector<float> Ratio;
+//vector<double> Angle;
+//vector<double> Velocity;
+double ratiomax=-1;
+double anglemax=-1;
+double velocitymax=-1;
+double i=101;
+double j=0.6981;
+while(i>=100 && i<300)
+{
+ while(j>0.6980 && j<0.8727)
+  {double tmp = 0;
+  cout<<tmp<<endl;
+   tmp = scanning(i,j);
+   if(tmp>ratiomax){
+   ratiomax = tmp;
+   anglemax = j;
+   velocitymax = i;
+    }
+  // Velocity.push_back(i);
+   j+=0.01;}
+ i+=10;
+}
+cout<<anglemax<<" "<<velocitymax<<" "<<ratiomax<<endl;
+int n;
+n = Count.size();
+//  TCanvas *c1 = new TCanvas("distribution","distribution",1200,1000);
+  TH1F *h1 = new TH1F("h1","distance",200,2700,4500);
+  h1->SetTitle("Distance of given height");
+  h1->GetXaxis()->SetTitle("x/m");
+  h1->GetYaxis()->SetTitle("counts");
+  for(int i=0;i<10000;i++) 
+  { h1->Fill(distribution[i]);}
+  h1->Draw();
+
+  
+   TGraph2D *dt = new TGraph2D();
+   dt->SetPoint(n,Angle,Velocity,Ratio);
+   dt->Draw();
+   
+
+   TPaveText *pt = new TPaveText(0.6,0.7,0.98,0.98,"brNDC");
+   pt->SetFillColor(18);
+   pt->SetTextAlign(12);
+   pt->AddText("velocity(200,5)");
+   pt->AddText("angle(0.785398,0.1)");
+   pt->Draw();
+
+*/
+
+
+
+/*******************************************************TEST*****************************************************************************/
+/*double targetx,targety;
+cout<<"Set x position of the target:"<<endl;
+cin>>targetx;
+cout<<"Set y position of the target:"<<endl;
+cin>>targety;
+
 Projectile cannon;
 cannon.Init(0,0,200,0.785398);
 double tmp;
@@ -413,8 +514,17 @@ do
 {cannon.Nextstep();}
 while(cannon.y.back()>500);
 cannon.Shoot(500);
-cout<<cannon.X3<<endl;
-cannon.Plot();
+//cout<<cannon.X3<<endl;
+//cannon.Plot();
+double comp1,comp2,mid;
+comp1 = cannon.X3;
+if(cannon.X3>targetx)
+{
+   comp2 = 0;
+   mid = (comp1+comp2)/2;
+   if(mid ){mid = (comp1+comp2)/2;}
+   
+}
 */
 
 return;
