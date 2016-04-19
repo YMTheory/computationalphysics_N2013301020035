@@ -44,7 +44,7 @@ And then we can apply Euler method as what we did in Chapter 1.
 
 3.In the hitting targets task,what I need to do is actually multi-parameters optimization.First I get the maximum firing angle with Euler method in our model.Then I fix firing angle and scan velocity.Everytime a feedback "too close" or "to remote" will be returned.According to the feedback I change velocity repeatly until within the allowable error range.
 
-4.It is more complicated to consider the error in velocity and firing angle--this is to say that we don't know exactly the initial condition of our shells.We can suppose that the dropping points will show distribution.I use random number generators in ROOT to generate guassian distribution numbers for velocity and angle.And I fill a histogram to count the number of different dropping points shells.What I can do next is to calculate the possibility of hitting the target within the error range.
+4.It is more complicated to consider the error in velocity and firing angle--this is to say that we don't know exactly the initial condition of our shells.We can suppose that the dropping points will show distribution.I use random number generators in ROOT to generate guassian distribution numbers for velocity and angle.And I fill a histogram to count the number of different dropping points shells.What I can do next is to calculate the possibility of hitting the target within the error range and optimize the shooting.I use the simplest way to realize the task--scanning velocity and angle in given steps and then select the one which has most shells dropping in the effective area.
 
 ###Plot
 ![plotting](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/projectile.png)
@@ -61,6 +61,8 @@ This is the final hitting points distribution with target height 500m.
 
 Comparing the result of one shooting and the statistic results,we can see that with consideration of gaussian distribution of velocity and firing angle,the hitting points show as gaussian distribution also.I totally shoot 3000 shells and according to the statistic results,there are 1122 shells drop into the range between +-100m from the center point.
 
+Running the scanning programme to find the best way to shoot.
+![programme](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterTwo/programme.png)
 
 ###Codes
 In this homework,I try programming with "class".The most important thing is to write the class of the simplest projectile stuff--I write "init","Nextstep","Intersection" and "plot" functions.And then the only thing I need to do is to modify the "Nextstep" function to write the air resisitance classes.
