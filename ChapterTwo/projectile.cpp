@@ -333,6 +333,7 @@ cin>>targety;*/
 
 //float scanning(double a,double b)
 //{
+/*
 int max=-10;
 double anglemax=-10;
 double velocitymax=-10;
@@ -434,64 +435,7 @@ cout<<max<<" "<<anglemax<<" "<<velocitymax<<endl;
    pt->AddText("angle(0.785398,0.1)");
    pt->Draw();
 
-
-
-
-
-
-/*
-//cout<<count<<endl;
-//vector<float> Ratio;
-//vector<double> Angle;
-//vector<double> Velocity;
-double ratiomax=-1;
-double anglemax=-1;
-double velocitymax=-1;
-double i=101;
-double j=0.6981;
-while(i>=100 && i<300)
-{
- while(j>0.6980 && j<0.8727)
-  {double tmp = 0;
-  cout<<tmp<<endl;
-   tmp = scanning(i,j);
-   if(tmp>ratiomax){
-   ratiomax = tmp;
-   anglemax = j;
-   velocitymax = i;
-    }
-  // Velocity.push_back(i);
-   j+=0.01;}
- i+=10;
-}
-cout<<anglemax<<" "<<velocitymax<<" "<<ratiomax<<endl;
-int n;
-n = Count.size();
-//  TCanvas *c1 = new TCanvas("distribution","distribution",1200,1000);
-  TH1F *h1 = new TH1F("h1","distance",200,2700,4500);
-  h1->SetTitle("Distance of given height");
-  h1->GetXaxis()->SetTitle("x/m");
-  h1->GetYaxis()->SetTitle("counts");
-  for(int i=0;i<10000;i++) 
-  { h1->Fill(distribution[i]);}
-  h1->Draw();
-
-  
-   TGraph2D *dt = new TGraph2D();
-   dt->SetPoint(n,Angle,Velocity,Ratio);
-   dt->Draw();
-   
-
-   TPaveText *pt = new TPaveText(0.6,0.7,0.98,0.98,"brNDC");
-   pt->SetFillColor(18);
-   pt->SetTextAlign(12);
-   pt->AddText("velocity(200,5)");
-   pt->AddText("angle(0.785398,0.1)");
-   pt->Draw();
-
 */
-
-
 
 /*******************************************************TEST*****************************************************************************/
 /*double targetx,targety;
@@ -526,6 +470,59 @@ if(cannon.X3>targetx)
    
 }
 */
+
+TCanvas *c1 = new TCanvas("distribution","distribution",1200,1000);
+double targety = 5;
+double angle[10];
+double velocity[10];
+vector<double> distribution;
+TRandom3 r1,r2;
+for(int i=0;i<4;i++)
+{
+velocity[i] = r1.Gaus(200,5);
+angle[i]=r2.Gaus(0.78,0.05);
+//cout<<angle[i]<<" "<<velocity[i]<<endl;
+}
+
+ int count=0;
+for(int i=0;i<4;i++)
+{
+  for(int j=0;j<4;j++)
+  {
+    Projectile *shell;
+    shell = new Projectile;
+  //  cout<<velocity[j]<<" "<<angle[i]<<endl;
+    shell->Init(0,0,velocity[j],angle[i]);
+   // cout<<shell->x.back()<<" "<<shell->y.back()<<" "<<shell->vx.back()<<" "<<shell->vy.back()<<endl;
+double tmp = -10;
+do
+{
+shell->Nextstep();
+if(tmp>=shell->y.back())
+{break;}
+tmp = shell->y.back();
+//cout<<shell.x.back()<<shell.y.back()<<endl;
+}while(shell->y.back()>0);
+do
+{shell->Nextstep();}
+while(shell->y.back()>targety);
+shell->Shoot(targety);
+distribution.push_back(shell->X3);
+int n;
+n = shell->x.size();
+if((i=0) && (j=0)){
+TGraph *g1 = new TGraph(n,&shell->x[0],&shell->y[0]);
+g1->Draw("APL");}
+//if(shell->X3>900 && shell->X3<1100)
+//{count++;}
+delete shell;
+}
+}
+
+
+
+
+
 
 return;
 }
