@@ -9,9 +9,9 @@ using namespace std;
 class Pendulum
 {
 public:  //meeting some problems with vectors
-  double theta[2000];
-  double omega[2000];
-  double time[2000];
+  double theta[30000];
+  double omega[30000];
+  double time[30000];
  
   Init(double a,double b);
   NextstepEuler();
@@ -19,6 +19,7 @@ public:  //meeting some problems with vectors
   NextstepRKEC();
   NextstepEREC();
   NextstepREEC();
+  Nextstep();
   Plot();
 };
 
@@ -99,6 +100,26 @@ Pendulum::NextstepREEC(int i)
 return;
 }
 
+
+Pendulum::Nextstep(int i,double F)
+{
+  double dt = 0.031415926;
+  omega[i] = omega[i-1]+(-sin(theta[i-1])-0.5*omega[i-1]+F*sin(2*time[i-1]/3))*dt;
+  theta[i] = theta[i-1]+omega[i]*dt;
+  time[i] = i*dt;
+ while(1){
+   if(theta[i]<-3.141592653)
+   {theta[i] += 2*3.141592653;}
+   else if(theta[i]>3.141592653)
+   {theta[i]-= 2*3.141592653;}
+//   else if(theta[i] = -3.141592653)
+//   {theta[i] +=2*3.141592653;}
+   else{break;}
+  }
+
+}
+
+
 Pendulum::Plot()   //Plot in ROOT
 {
 
@@ -127,27 +148,38 @@ void pendulum()
   }
 */
   Pendulum p1;
-  p1.Init(0,1);
-  for(int i=1;i<2000;i++)
-  {p1.NextstepEC(i);}
+  p1.Init(0.2,0);
+  for(int i=1;i<30000;i++)
+  {p1.Nextstep(i,0);}
  // p1.Plot();
 //   cout<<p1.theta.back()<<" "<<p1.omega.back()<<endl;}
  // p1.Plot();
   Pendulum p2;
-  p2.Init(0,1);
-  for(int i=1;i<2000;i++)
-  {p2.NextstepRKEC(i);}
+  p2.Init(0.2,0);
+  for(int i=1;i<30000;i++)
+  {p2.Nextstep(i,1.45);}
 //  p2.Plot(); 
   
   Pendulum p3;
-  p3.Init(0,1);
-  for(int i=1;i<2000;i++)
-  {p3.NextstepEREC(i);}
+  p3.Init(0.2,0);
+  for(int i=1;i<30000;i++)
+  {p3.Nextstep(i,1.45);}
 
-  Pendulum p4;
-  p4.Init(0,1);
-  for(int i=1;i<2000;i++)
-  {p4.NextstepREEC(i);}
+double Theta[100];
+double Omega[100];
+for(int i=0;i<100;i++)
+{
+  Theta[i] = p3.theta[300*i];
+  Omega[i] = p3.omega[300*i];
+//  if(dtheta[i] =2* 3.141592653)
+//  {dtheta[i] = 0;}
+}
+
+
+//  Pendulum p4;
+//  p4.Init(0,1);
+//  for(int i=1;i<2000;i++)
+//  {p4.NextstepREEC(i);}
 
  /* double diff2 = 0;
   for(int i=0;i<2000;i++)
@@ -157,45 +189,94 @@ void pendulum()
     cout<<diff2/2000<<endl;
  */
    TCanvas *ym = new TCanvas("pendulum","pendulum",1200,1000);
-   TGraph *g1=new TGraph(2000,p1.time,p1.theta);
-   TGraph *g2=new TGraph(2000,p2.time,p2.theta);
-   TGraph *g3=new TGraph(2000,p3.time,p3.theta);
-   TGraph *g4=new TGraph(2000,p4.time,p4.theta);
-  // TGraph *g0=new TGraph(2000,time,anal);
-   g1->SetTitle("Oscillatory Motion");
-   g1->GetXaxis()->SetTitle("time/s");
-   g1->GetYaxis()->SetTitle("theta");
-//   g1->GetXaxis()->SetLimits(0,2200);
-//   g1->GetYaxis()->SetLimits(0,500);
-   g1->SetLineWidth(0.1);
-   g2->SetLineWidth(0.1);
-   g3->SetLineWidth(0.1);
-   g4->SetLineWidth(0.1);
+   TGraph *g1=new TGraph(10000,p1.theta,p1.omega);
+   TGraph *g2=new TGraph(10000,p2.time,Theta);
+   TGraph *g3=new TGraph(100,Theta,Omega);
+   
    g1->SetLineColor(1);
    g2->SetLineColor(2);
+   g2->SetMarkerColor(2);
+   g3->SetLineColor(1);
+   g3->SetMarkerColor(1);
+   g3->SetTitle("Oscillatory Motion(F_D=1.45)");
+   g3->GetXaxis()->SetTitle("time/s");
+   g3->GetYaxis()->SetTitle("theta");
+   g3->SetLineWidth(1.5);
+ 
+   g3->Draw("AP");
+//   g1->Draw("PLsame");
+//   g2->Draw("PLsame");
+
+ /*  TGraph *g4=new TGraph(2000,p1.theta,p1.omega);
+   TGraph *g5=new TGraph(2000,p2.theta,p2.omega);
+   TGraph *g6=new TGraph(2000,p3.time,p3.omega);
+ 
+   g3->SetTitle("Oscillatory Motion");
+   g3->GetXaxis()->SetTitle("time/s");
+   g3->GetYaxis()->SetTitle("theta");
+//   g1->GetXaxis()->SetLimits(0,2200);
+//   g1->GetYaxis()->SetLimits(0,500);
+   g1->SetLineWidth(0.15);
+   g2->SetLineWidth(0.15);
+   g3->SetLineWidth(0.15);
+  // g4->SetLineWidth(0.1);
+   g1->SetLineColor(1);
+   g2->SetLineColor(2);
+   g2->SetMarkerColor(2);
    g3->SetLineColor(3);
-   g4->SetLineColor(4);
+   g3->SetMarkerColor(3);
+   //g3->SetTitle("Oscillatory Motion")
+  // g4->SetLineColor(4);
   // g0->SetLineColor(5);
-   g1->Draw("APL");
+   ym->cd(1);
+   g3->Draw("APL");
    g2->Draw("PLsame");
-   g3->Draw("PLsame");
-   g4->Draw("PLsame");
+   g1->Draw("PLsame");
+  // g4->Draw("PLsame");
   // g0->Draw("PLsame");
-   TLegend *legend = new TLegend(.75,.80,.95,.95);
-   legend->AddEntry(g1,"Euler");
-   legend->AddEntry(g2,"RK");
-   legend->AddEntry(g3,"Euler-RK");
-   legend->AddEntry(g4,"RK-Euler");
+*/  
+  
+ /*  TLegend *legend = new TLegend(.75,.80,.95,.95);
+   legend->AddEntry(g1,"F_D=0");
+   legend->AddEntry(g2,"F_D=0.5");
+   legend->AddEntry(g3,"F_D=1.2");
+//   legend->AddEntry(g4,"RK-Euler");
   // legend->AddEntry(g0,"Analytic");
    legend->Draw();
+ */
 
+/*   g4->SetTitle("Oscillatory Motion");
+   g4->GetXaxis()->SetTitle("time/s");
+   g4->GetYaxis()->SetTitle("theta");
 
+   g4->SetLineColor(1);
+   g5->SetLineColor(2);
+   g5->SetMarkerColor(2);
+   g6->SetLineColor(3);
+   g6->SetMarkerColor(3);
+
+   g4->Draw("APL");
+   g5->Draw("PLsame");
+   g6->Draw("PLsame");
+
+   TLegend *legend2 = new TLegend(.75,.80,.95,.95);
+   legend2->AddEntry(g4,"F_D=0");
+   legend2->AddEntry(g5,"F_D=0.5");
+   legend2->AddEntry(g6,"F_D=1.2");
+//   legend->AddEntry(g4,"RK-Euler");
+  // legend->AddEntry(g0,"Analytic");
+   legend2->Draw();
+
+*/
+
+ 
+/*
   double diff12 = 0;
   for(int i=0;i<2000;i++)
   { 
     diff12 += (p1.theta[i]-p2.theta[i])*(p1.theta[i]-p2.theta[i]);
   }
     cout<<diff12<<endl;
-
+*/
 return;
 }
