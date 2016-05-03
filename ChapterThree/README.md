@@ -62,6 +62,7 @@ In my programme,I keep meeting problems on the stability of numerical calculatio
 
 ###Breaking Off
 There is a breaking off in my homework for Wuhan University Outdoors Basketball Games -- "TengFei Bei" has began from April 20th.As a player in physics school team,I put almost all my concentration on the matches because it is the only big matches the whole year for us.So I have stopped refreshing my github for a week,but I will complete what I missed after a while.
+![NBA](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterThree/basketball.jpg)
 
 
 ###Chaos
