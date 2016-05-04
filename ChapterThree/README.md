@@ -93,3 +93,6 @@ Also,I make a small flash to show the z-time relation as r from 1 to 200.
 
 ###Conclusion
 In Lorentz model,by scanning r from 1 to 200,we can see that chaos only appear some specail range.
+When r<22,the system appears as a damped one whose amplitude come to zero finally.
+However,once r=23,the system becomes chaotic.
+In most situation,it is hard to find the period in the first 100 seconds.While there is still some point such as r=84,r=92,r from 130 to 145...When r=188,we can find the period is about 1.6 while r=189 the period increases as about 3.This is the same with the period-doubling theory.
