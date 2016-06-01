@@ -28,13 +28,27 @@ However there are some improvements to save our work time.For example,the Gauss-
 Another method which fasten the process more is called simultaneous over-relaxation(SOR).Let V*(i,j) be the new value of the potential calculated using the Guass-Seidel method.We then write ![delat V](http://latex.codecogs.com/gif.latex?%5CDelta%20V%28i%2Cj%29%5Cequiv%20V%5E*%28i%2Cj%29-V_%7Bold%7D%28i%2Cj%29%285.7%29).To speed up convergence we will change the potential by a larger amount calculated according to ![SOR](http://latex.codecogs.com/gif.latex?V_%7Bnew%7D%28i%2Cj%29%3D%5Calpha%20%5CDelta%20V%28i%2Cj%29&plus;V_%7Bold%7D%28i%2Cj%29%285.8%29).The best choice of alpha is ![alpha](http://latex.codecogs.com/gif.latex?%5Calpha%20%5Capprox%20%5Cfrac%7B2%7D%7B1&plus;%5Cpi%20/L%7D%285.9%29).
 
 ###Images
-Here I concentrate on a problem on the book -- two finite plates with potential +1V and -1V and boundary conditions defined by x=+1,x=-1,y=+1 and y=-1 with V=0.What we need to do is to calculate the potential in the area.Here I simply apply Jacobi algorithm and Guass-Seidel Method and compare the results.
+Here I concentrate on a problem on the book -- two finite plates with potential +1V and -1V and boundary conditions defined by x=+1,x=-1,y=+1 and y=-1 with V=0.What we need to do is to calculate the potential in the area.Here I simply apply Jacobi algorithm and Guass-Seidel Method and compare the results.In the first condition,I seperate the grid into 8*8.
 
 ![Initial condition](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterFive/Initial.PNG)
+
 This is the initial conditions I have set.
 
 ![Jacobi](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterFive/Jacobi.PNG)
+
 This is the result with Jacobi algorithm.
 
 ![GS](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterFive/GS.PNG)
+
 This is the result with Gauss-Seidel Method.
+
+![SOR](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterFive/SOR.PNG)
+
+We can see that we run 17 times to get a reasonable result with Jacobi algorithm and 28 times with Guass-Seidel method.
+
+Then I change the grid into 16*16,and still use the three different method to calculate this problem.
+
+###Result
+Here I list the times to get a reasonable result with the three different method in the two conditions.
+
+![Compare](https://raw.githubusercontent.com/YMTheory/computationalphysics_N2013301020035/master/ChapterFive/compare.PNG)
